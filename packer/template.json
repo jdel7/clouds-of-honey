@@ -1,0 +1,28 @@
+{
+    "variables": {
+        "my_token": ""
+    },
+    "builders": [
+      {
+        "type": "digitalocean",
+        "ssh_username": "root",
+        "api_token": "{{user `my_token`}}",
+        "image": "ubuntu-18-04-x64",
+        "region": "sfo2",
+        "size": "s-1vcpu-1gb"
+      }
+    ],
+    "provisioners": [
+        {
+            "type": "file",
+            "source": "configs/",
+            "destination": "/tmp"
+        },
+        {
+            "type": "shell",
+            "scripts": [
+                "scripts/configureHoneypot.sh"
+            ]
+        }
+    ]
+  }
