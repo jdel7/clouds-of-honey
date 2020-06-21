@@ -9,4 +9,5 @@ jobs:
       - run:
           name: validate packer template
           command: |
-            packer validate ~/project/packer/template.json
+            cd ~/project/packer
+            packer validate template.json
