@@ -11,3 +11,8 @@ jobs:
           command: |
             cd ~/project/packer
             packer validate template.json
+      - run: 
+          name: build packer image on digitalocean
+          command: |
+            cd ~/project/packer
+            packer build template.json
