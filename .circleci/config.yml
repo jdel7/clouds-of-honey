@@ -22,6 +22,7 @@ jobs:
       - image: hashicorp/terraform:0.12.26
     working_directory: ~/project
     steps:
+      - checkout
       - attach_workspace:
           at: .
       - run:
