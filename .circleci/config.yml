@@ -59,4 +59,5 @@ workflows:
             branches:
               only: [master]
       - init
-      - plan
+      - plan:
+          requires: [init]
