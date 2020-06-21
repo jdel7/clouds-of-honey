@@ -57,5 +57,5 @@ workflows:
           filters:
             branches:
               only: [master]
-      - init:
-      - plan:
+      - init
+      - plan
