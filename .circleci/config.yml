@@ -22,7 +22,6 @@ jobs:
       - image: hashicorp/terraform:0.12.26
     working_directory: ~/project
     steps:
-      - checkout
       - attach_workspace:
           at: .
       - run:
@@ -81,6 +80,11 @@ workflows:
               only: [master]
       - plan:
           requires: [init]
+          filters:
+            branches:
+              only: [master]
+      - apply:
+          requires: [plan]
           filters:
             branches:
               only: [master]
