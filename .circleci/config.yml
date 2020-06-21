@@ -39,7 +39,7 @@ jobs:
     working_directory: ~/project
     steps:
       - attach_workspace:
-          at: ~/project/terraform-files
+          at: ~/project/terraform
       - run:
           name: init
           command: |
@@ -48,3 +48,14 @@ jobs:
       - persist_to_workspace:
           root: ~/project/terraform
           paths: ~/project/terraform
+
+workflows:
+  version: 2.1
+  honeypot:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: [master]
+      - init:
+      - plan:
