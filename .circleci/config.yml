@@ -6,7 +6,7 @@ jobs:
     working_directory: ~/project
     steps:
       - checkout
-    - run:
-        name: validate packer template
-        command: |
-          packer validate ~/project/packer/template.json
+      - run:
+          name: validate packer template
+          command: |
+            packer validate ~/project/packer/template.json
