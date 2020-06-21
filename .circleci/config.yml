@@ -26,7 +26,7 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: init
+          name: terraform init
           command: |
             cd ~/project/terraform
             terraform init -input=false
@@ -42,10 +42,26 @@ jobs:
       - attach_workspace:
           at: .
       - run:
-          name: init
+          name: terraform plan
           command: |
             cd ~/project/terraform
             terraform plan -out=tfplan -input=false
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  apply:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd ~/project/terraform
+            terraform apply tfplan
       - persist_to_workspace:
           root: .
           paths: .
@@ -58,6 +74,13 @@ workflows:
           filters:
             branches:
               only: [master]
-      - init
+      - init:
+          requires: [build]
+          filters:
+            branches:
+              only: [master]
       - plan:
           requires: [init]
+          filters:
+            branches:
+              only: [master]
