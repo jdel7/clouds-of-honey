@@ -16,3 +16,75 @@ jobs:
           command: |
             cd ~/project/packer
             packer build template.json
+    
+  init:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform init
+          command: |
+            cd ~/project/terraform
+            terraform init -input=false
+      - persist_to_workspace:
+          root: .
+          paths: .
+      
+  plan:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform plan
+          command: |
+            cd ~/project/terraform
+            terraform plan -out=tfplan -input=false
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+  apply:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: terraform apply
+          command: |
+            cd ~/project/terraform
+            terraform apply tfplan
+      - persist_to_workspace:
+          root: .
+          paths: .
+
+workflows:
+  version: 2.1
+  honeypot:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only: [master]
+      - init:
+          requires: [build]
+          filters:
+            branches:
+              only: [master]
+      - plan:
+          requires: [init]
+          filters:
+            branches:
+              only: [master]
+      - apply:
+          requires: [plan]
+          filters:
+            branches:
+              only: [master]
