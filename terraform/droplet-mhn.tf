@@ -1,5 +1,5 @@
 resource "digitalocean_droplet" "web" {
-    image = "packer-1588461749"
+    image = data.digitalocean_droplet_snapshot.honeypot_latest.id
     name = "mhn"
     region = "sfo2"
     size = "s-1vcpu-1gb"
@@ -16,8 +16,6 @@ provider "digitalocean" {
 ## ssh fingerprint 00:f5:43:80:1c:81:a2:e6:78:6b:8d:13:d5:2a:3a:25
 
 variable "do_token" {}
-#variable "pub_key" {}
-#variable "pvt_key" {}
 variable "ssh_fingerprint" {}
 
 /*
@@ -26,3 +24,9 @@ variable "ssh_fingerprint" {}
     variable “pvt_key”: private key location, so Terraform can connect to new droplets
     variable “ssh_fingerprint”: fingerprint of SSH key
 */
+
+data "digitalocean_droplet_snapshot" "honeypot_latest" {
+    name_regex = "packer-*"
+    region = "sfo2"
+    most_recent = true
+}

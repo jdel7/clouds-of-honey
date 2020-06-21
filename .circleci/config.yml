@@ -16,3 +16,35 @@ jobs:
           command: |
             cd ~/project/packer
             packer build template.json
+    
+  init:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: ~/project/terraform
+      - run:
+          name: init
+          command: |
+            cd ~/project/terraform
+            terraform init -input=false
+      - persist_to_workspace:
+          root: ~/project/terraform
+          paths: ~/project/terraform
+      
+  plan:
+    docker:
+      - image: hashicorp/terraform:0.12.26
+    working_directory: ~/project
+    steps:
+      - attach_workspace:
+          at: ~/project/terraform-files
+      - run:
+          name: init
+          command: |
+            cd ~/project/terraform
+            terraform plan -out=tfplan -input=false
+      - persist_to_workspace:
+          root: ~/project/terraform
+          paths: ~/project/terraform
