@@ -10,8 +10,3 @@ git clone https://github.com/droberson/ssh-honeypot.git
 cd ssh-honeypot
 make install
 systemctl enable --now ssh-honeypot
-
-# cp /tmp/sshd-second_config /etc/ssh/
-# cp /tmp/sshd-second.service /etc/systemd/system/
-# systemctl daemon-reload
-# systemctl enable sshd-second.service --now
