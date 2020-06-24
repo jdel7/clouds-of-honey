@@ -1,6 +1,8 @@
 # Clouds of Honey
 Automates creating an SSH honeypot so you can get to the fun stuff. ;) 
 
+![honey stick material](assets/honey.jpg)
+
 The project uses the following tools: 
 * [Circleci](https://circleci.com)
 * [DigitalOcean](https://www.digitalocean.com)
