@@ -1,8 +1,6 @@
 # Clouds of Honey
 Automates creating an SSH honeypot so you can get to the fun stuff. ;) 
 
-[![CircleCI](https://circleci.com/gh/securitylater/clouds-of-honey.svg?style=svg)](https://circleci.com/)
-
 The project uses the following tools: 
 * [Circleci](https://circleci.com)
 * [DigitalOcean](https://www.digitalocean.com)
