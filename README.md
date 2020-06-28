@@ -10,6 +10,26 @@ The project uses the following tools:
 * [Terraform](https://https://www.terraform.io/)
 * [ssh-honeypot](https://github.com/droberson/ssh-honeypot)
 
+## How to use this project
+
+### Setup 
+
+1. Sign up with CircleCI if you haven't already. It's free and uses your GitHub account for authorization and authentication
+2. Sign up for a [DigitalOcean](https://cloud.digitalocean.com/registrations/new) account
+3. Create a [Personal Access Token](https://www.digitalocean.com/docs/apis-clis/api/create-personal-access-token/) in DigitalOcean
+4. Crate an [SSH key](https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/create-with-openssh/) and [upload your ssh
+key](https://www.digitalocean.com/docs/droplets/how-to/add-ssh-keys/to-account/) to your DigitalOcean account
+5. In CircleCI [add this project](https://circleci.com/docs/2.0/project-build/)
+6. In the CircleCI [project settings add the following environment variables:](https://circleci.com/docs/2.0/env-vars/#setting-an-environment-variable-in-a-project) 
+  * `DIGITALOCEAN_API_TOKEN` - the value should be your DigitalOcean Personal Access token
+  * `TF_VAR_do_token` - the value should be your DigitalOcean Personal Access token
+  * `TF_VAR_ssh_fingerprint` - the value should be the SSH fingerprint of the public key you added to your DigitalOcean account
+
+### Start building
+
+Now that you've got everything setup all you need to do is run the CircleCI workflow on the master branch. Anytime you make commits and they 
+land on the master branch it will create a honeypot. You can change the CircleCI workflow to do whatever you want. 
+
 ## Uses
 
 ### ssh-honeypot
